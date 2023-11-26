@@ -1,0 +1,1 @@
+docker run --rm --name=wasiconsole --runtime=io.containerd.wasmtime.v1 -e loop=true --platform=wasi/wasm32 wasiconsole

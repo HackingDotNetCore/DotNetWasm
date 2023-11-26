@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "WasiHost": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}

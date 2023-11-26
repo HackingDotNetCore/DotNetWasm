@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WasmSingleFileBundle>true</WasmSingleFileBundle>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AsciiArt\AsciiArt.csproj" />
+  </ItemGroup>
+</Project>
