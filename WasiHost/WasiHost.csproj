@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="WasiConsole.wasm" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Wasmtime" Version="14.0.0" />
   </ItemGroup>
 
