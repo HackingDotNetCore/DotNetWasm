@@ -28,7 +28,7 @@ store.SetWasiConfiguration(wasiConfiguration);
 //store.SetEpochDeadline(10000);
 
 // Carico il modulo
-using var module = Module.FromFile(engine, @"..\..\..\..\WasiConsole\bin\Release\net8.0\wasi-wasm\AppBundle\WasiConsole.wasm");
+using var module = Module.FromFile(engine, @"..\..\..\WasiConsole.wasm");
 
 using var linker = new Linker(engine);
 // Definizione funzioni previste da WASI
@@ -43,6 +43,7 @@ var memory = instance.GetMemory("memory")!;
 
 var fibonacci = instance.GetFunction<int, int>("fibonacci")!;
 Console.WriteLine($"Fibonacci: {fibonacci(10)}");
+Console.WriteLine("Press return to continue");
 Console.ReadLine();
 
 var text = "DotNet Conference 2013!";
@@ -78,6 +79,7 @@ void PrintFunctions()
     {
         Console.WriteLine(import.Name);
     }
+    Console.WriteLine();
 }
 
 void DefinePrintFunction()
@@ -87,12 +89,12 @@ void DefinePrintFunction()
         "print",
         Function.FromCallback(store, (Caller caller, int valuePtr, int valueLen) =>
         {
-            var memory = caller.GetMemory("memory");
-            if (memory is null)
+            var callerMemory = caller.GetMemory("memory");
+            if (callerMemory is null)
                 throw new Exception("Missing export 'memory'");
 
             // Leggo tramite puntatore e dimensione
-            var value = memory.ReadString(valuePtr, valueLen, Encoding.UTF8);
+            var value = callerMemory.ReadString(valuePtr, valueLen, Encoding.UTF8);
             Console.WriteLine(value);
         })
     );

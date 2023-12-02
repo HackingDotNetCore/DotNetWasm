@@ -21,11 +21,12 @@ MonoObject* invoke_hello(MonoObject* target_instance, void* method_params[]) {
     return res;
 }
 
+static int runtime_initialized = 0;
+
 extern void _start(void);
 
 __attribute__((export_name("fibonacci")))
 int fibonacci(int len) {
-    static int runtime_initialized = 0;
 
     if (runtime_initialized == 0) {
         _start();
@@ -48,13 +49,12 @@ int fibonacci(int len) {
 
 __attribute__((export_name("hello")))
 void hello(const char* value, int value_len) {
-    static int runtime_initialized = 0;
 
     if (runtime_initialized == 0) {
         _start();
         runtime_initialized = 1;
     }
-    MonoString* text_string = mono_string_new(0, value);
+    MonoString* text_string = mono_string_new_len(0, value, value_len);
 
     void* params[] = { text_string };
     invoke_hello(NULL, params);
